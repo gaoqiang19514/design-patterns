@@ -5,7 +5,8 @@
 
 
 
-````viewLoginView = (function(){
+````
+viewLoginView = (function(){
     var singleton;
 
     return function(func){

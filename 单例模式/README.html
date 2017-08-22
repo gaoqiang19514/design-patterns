@@ -9,17 +9,17 @@
 <blockquote>
 <p>用一个变量判断这个目标是否已经创建过一次，如果是，直接返回目标的缓存，否则就创建这个目标</p>
 </blockquote>
-<p>````viewLoginView = (function(){
-    var singleton;</p>
-<pre><code>return function(func){
-    if(!singleton){
-        return singleton || (singleton = func.apply(this, arguments));
+<pre><code>viewLoginView = (function(){
+    var singleton;
+
+    return function(func){
+        if(!singleton){
+            return singleton || (singleton = func.apply(this, arguments));
+        }
+
+        return singleton; 
     }
-
-    return singleton; 
-}
-</code></pre><p>})();
-````</p>
-
+})();
+</code></pre>
       </body>
     </html>
