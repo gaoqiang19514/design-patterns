@@ -18,3 +18,5 @@ viewLoginView = (function(){
     }
 })();
 ````
+
+![测试名字](http://cdn2.jianshu.io/assets/web/logo-58fd04f6f0de908401aa561cda6a0688.png)
