@@ -17,5 +17,4 @@ viewLoginView = (function(){
 })();
 ````
 
-![测试名字](http://cdn2.jianshu.io/assets/web/logo-58fd04f6f0de908401aa561cda6a0688.png)
-[简书](http://www.jianshu.com/p/1e402922ee32/)
+[![简书](http://cdn2.jianshu.io/assets/web/logo-58fd04f6f0de908401aa561cda6a0688.png  "测试一下")](http://www.jianshu.com/p/1e402922ee32/)
