@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>策略模式</title>
+</head>
+<body>
+
+<script>
+    // 根据环境返回不同的方法，比如addEventListener
+
+    var addEvent = function(elem, type, func){
+        if(window.addEventListener){
+            addEvent = function(elem, type, func){
+                elem.addEventListener(type, func, false);
+            };
+        }else if(window.attachEvent){
+            addEvent = function(elem, type, func){
+                elem.attachEvent('on' + type, func);
+            };
+        }else{
+            addEvent = function(elem, type, func){
+                elem['on' + type] = func;
+            };
+        }
+
+        addEvent(elem, type, func);
+    };
+
+
+    var W3c = function(){
+    };
+    W3c.prototype.addEvent = function(elem, type, func){
+        elem.addEventListener(type, func, false);
+    };
+
+    var Ie = function(){
+    };
+    Ie.prototype.addEvent = function(elem, type, func){
+        elem.attachEvent(type, func, false);
+    };
+
+    var Old = function(){
+    };
+    Old.prototype.addEvent = function(elem, type, func){
+        elem['on' + type] = func;
+    };
+
+    var Context = function(strategy){
+        this.strategy = strategy;
+    };
+    Context.prototype.addEvent = function(elem, type, func){
+        this.strategy.addEvent(elem, type, func);
+    };
+
+    var ie = new Old();
+    var context = new Context(ie);
+    context.addEvent(window, 'load', function(){
+        alert();
+    });
+
+</script>
+</body>
+</html>
