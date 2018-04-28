@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title></title>
+</head>
+<body>
+
+
+
+<script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+<script>
+
+    // $.each = function (obj, callback) {
+    //     var value,
+    //         i = 0,
+    //         length = obj.length,
+    //         isArray = isArraylike(obj);
+    //     if (isArray) { // 迭代类数组
+    //         for (; i < length; i++) {
+    //             value = callback.call(obj[i], i, obj[i]);
+    //             if (value === false) {
+    //                 break;
+    //             }
+    //         }
+    //     } else {
+    //         for (i in obj) { // 迭代object 对象
+    //             value = callback.call(obj[i], i, obj[i]);
+    //             if (value === false) {
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     return obj;
+    // };
+
+    // 将上面的例子转化为迭代器模式 
+    
+    // 1. 判断条件
+    // 2. 分离出不同的迭代方式
+
+    // isArray  eachArray
+    // isObject eachObject
+
+    
+    var isArray = function(collection){
+        return Object.prototype.toString.call(collection) === '[object Array]';
+    };
+
+    var isObject = function(collection){
+        return Object.prototype.toString.call(collection) === '[object Object]';
+    };
+
+    var eachArray = function(collection){
+        if(isArray(collection)){
+
+            // 迭代细节。。。
+
+            console.log('我可以迭代数组类型', collection);
+
+            return collection;
+        }
+    };
+
+    var eachObject = function(collection){
+        if(isObject(collection)){
+
+            // 迭代细节。。。
+
+            console.log('我可以迭代对象类型', collection);
+            
+            return collection;
+        }
+    };
+
+    var eachCollection = function(collection, methods){
+        var result;
+        $.each(methods, function(index, func){
+            var _res = func(collection)
+            if(_res){
+                result = _res;
+            }
+        });
+
+        return result;
+    };
+
+    // var res = eachCollection([1, 2, 3], [eachArray, eachObject]);
+
+    var res = eachCollection({
+        title: 'title',
+        content: 'content',
+        buttons: 'buttons'
+    }, [eachArray, eachObject]);
+    console.log(res);
+
+</script>
+</body>
+</html>
