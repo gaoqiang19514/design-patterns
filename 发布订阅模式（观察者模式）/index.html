@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+    var lg = console.log;
+
+    var EventManger = (function(){
+        var offlineStack = {}, handlers = {};
+
+        var isArray = function(obj){
+            return Object.prototype.toString.call(obj) === '[object Array]';
+        };
+
+        var _trigger = function(type, data){
+            if (isArray(handlers[type])) {
+                var handler = handlers[type];
+                for (var i = 0, len = handler.length; i < len; i++) {
+                    handler[i].apply(null, data);
+                }
+            }
+        };
+
+        var trigger = function(type, data){
+            _trigger(type, data);
+            
+            offlineStack[type] = [data];
+        };
+
+        var _listen = function(type, handler){
+            if (!isArray(handlers[type])) {
+                handlers[type] = [];
+            }
+            handlers[type].push(handler);
+        };
+
+        var listen = function(type, handler){
+            _listen(type, handler);
+
+            if (isArray(offlineStack[type])) {
+                handler.apply(null, offlineStack[type]);
+            }
+        };
+
+        return {
+            listen: listen,
+            trigger: trigger
+        }
+    })();
+    
+    EventManger.trigger('click', {type: 'click'});
+    EventManger.listen('click', function(data){
+        lg(data);
+    });
+
+    EventManger.trigger('click2', {type: 'click2'});
+    EventManger.listen('click2', function(data){
+        lg(data);
+    });
+
+</script>
+</body>
+</html>
