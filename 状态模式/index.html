@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+
+
+<script>
+
+    // var Light = function(){
+    //     this.state  = 'off';
+    //     this.button = null;
+    // };
+
+    // Light.prototype.init = function(){
+    //     var self   = this;
+    //     var button = document.createElement('button');
+
+    //     button.innerText = '开关';
+    //     this.button = document.body.appendChild(button);
+    //     this.button.onclick = function(){
+    //         self.buttonWasPressed();
+    //     };
+    // };
+    // Light.prototype.buttonWasPressed = function() {
+    //     if(this.state === 'off'){
+    //         this.state = 'on';
+    //         console.log('开灯');
+    //     }else if(this.state === 'on'){
+    //         this.state = 'off';
+    //         console.log('关灯');
+    //     }
+    // }
+
+    var OffLight = function(light){
+        this.light = light;
+
+        this.buttonWasPressed = () => {
+            console.log('WeakLight')
+            this.light.setState(this.light.WeakLightState)
+        };
+    };
+    var WeakLight = function(light){
+        this.light = light;
+
+        this.buttonWasPressed = () => {
+            console.log('StrongLight')
+            this.light.setState(this.light.StrongLightState)
+        };
+    };
+    var StrongLight = function(light){
+        this.light = light;
+
+        this.buttonWasPressed = () => {
+            console.log('OffLight')
+            this.light.setState(this.light.offLightState)
+        };
+    };
+
+    var Light = function(){
+        this.offLightState    = new OffLight(this)
+        this.WeakLightState   = new WeakLight(this)
+        this.StrongLightState = new StrongLight(this)
+        this.currentState     = this.offLightState;
+    
+        this.button = null;
+
+        this.init = () => {
+            var button = document.createElement('button');
+            button.innerText = '开关';
+
+            this.button = document.body.appendChild(button);
+            this.button.onclick = () => {
+                this.currentState.buttonWasPressed();
+            }
+        }
+
+        this.setState = (newState) => {
+            this.currentState = newState
+        };
+    };
+
+
+    var light = new Light();
+    light.init()
+    
+</script>
+</body>
+</html>
